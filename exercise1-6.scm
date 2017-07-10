@@ -28,29 +28,24 @@
 		     (average g (/ x g)))
 
 (define (sqroot x)
-  (sqrt-iter 1 x))
+  (sqrt-iter 1.0 x))
 
 ;;;Testing our square root iteration with new-if instead of if
-;;;We get an unbound variable error because the predicate in this case does not evaluate
-;;;to either true or false when the new-if procedure in called. For instance, under applicative-order
-;;;which MIT/GNU Scheme uses the good-enough? procedure is evaluated first and it returns either a true or false value
+;;;We get an infinite loop variablex
+
+
 
 
 ;(new-if (= 1 1) 0 5)
 ;Value: 0
 
-;Value: sqrt-iter
-
-;(sqroot 2)
-;Unbound variable: sqroot
-;To continue, call RESTART with an option number:
-; (RESTART 4) => Specify a value to use instead of sqroot.
-; (RESTART 3) => Define sqroot to a given value.
-; (RESTART 2) => Return to read-eval-print level 2.
-; (RESTART 1) => Return to read-eval-print level 1.
-;Start debugger? (y or n):n
 
 
+
+
+;(sqroot 4.0)
+;Aborting!: maximum recursion depth exceeded
+;Start debugger? (y or n):
 
 
 
