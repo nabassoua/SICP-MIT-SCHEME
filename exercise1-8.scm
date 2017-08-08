@@ -3,16 +3,16 @@
 
 
 
-(define (cube-iter g x)
-		 (if(good-enough? g x)
-		    g
-		    (cube-iter (improve-guess g x) x)))
+(define (cube-iter guess previous-guess x)
+		 (if(good-enough? guess previous-guess)
+		    guess
+		    (cube-iter (improve-guess guess previous-guess) guess x)))
 
 
-(define (improve-guess g x)
+(define (improve-guess guess x)
 		     (/ (+ (/ x
-			      (square g))
-			   (* 2 g))
+			      (square guess))
+			   (* 2 guess))
 			3))
 
 (define (cube x)(* x x x))
@@ -24,17 +24,17 @@
 	       (/ (+ m n) 2))
 
 
-(define (good-enough? g x)
-		     (< (abs (- (cube g) x)) 0.001))
+(define (good-enough? guess previous-guess)
+		     (< (abs (-  guess previous-guess)) 0.001))
 
 (define (cuberoot x)
-  (cube-iter 1.0 x))
+  (cube-iter 1.0 2.0 x))
 
 ;;;Testing our cube root iteration by computing the cube root of 27 and 3
 ;;;There is a bug as the value returned are not correct
 
 
-(cuberoot 27)
+;(cuberoot 27)
 ;Value: 1
 
 ;(cuberoot 3)
