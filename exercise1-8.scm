@@ -6,7 +6,7 @@
 (define (cube-iter guess previous-guess x)
 		 (if(good-enough? guess previous-guess)
 		    guess
-		    (cube-iter (improve-guess guess previous-guess) guess x)))
+		    (cube-iter (improve-guess guess x) guess x)))
 
 
 (define (improve-guess guess x)
@@ -28,15 +28,11 @@
 		     (< (abs (-  guess previous-guess)) 0.001))
 
 (define (cuberoot x)
-  (cube-iter 1.0 2.0 x))
+  (cube-iter 1.0 0  x))
 
-;;;Testing our cube root iteration by computing the cube root of 27 and 3
-;;;There is a bug as the value returned are not correct
+;;;Testing our cube root iteration by computing the cube root of 27 
 
 
-;(cuberoot 27)
-;Value: 1
 
-;(cuberoot 3)
-;Value: 1
-
+(cuberoot 27)
+;Value: 3.0000000000000977
