@@ -26,6 +26,7 @@
 
 (7)
 ;The object 7 is not applicable.
+;Expression type: compound - combination
 
 (define two (+ 1 one))
 ;Value: two
