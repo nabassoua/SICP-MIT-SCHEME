@@ -98,3 +98,22 @@ biggie-size
 ;Expression type: procedure application
 
 
+;;;Finds largest number given 3 numbers
+
+
+(define largest-number
+  (lambda (a b c)
+    (cond ((and (> a b) (> a c) a))
+	  ((and (> b a) (> b c) b))
+	  ((and (> c a) (> c b) c)))))
+
+;;;Examples
+
+;Value: largest-number
+
+;(largest-number -1 0 2)
+;Value: 2
+
+;(largest-number -5 -6 -1)
+;Value: -1
+
