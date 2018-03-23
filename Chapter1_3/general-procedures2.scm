@@ -10,12 +10,13 @@
 
 (define (newton-transform g)
   (lambda(x)(- x
-	       (/ (g x) (deriv x)))))
+	       (/ (g x) ((deriv g) x)))))
 
 (define (newton-method g guess)
-  (lambda(x)(fixed-point((newton-transform g) guess))))
+  (fixed-point(newton-transform g) guess))
 
 ;;;Applying Newton square to compute square root
 
-(define (mysquare x guess)
-  (newton-method (
+(define (mysquare x) 
+  (newton-method(lambda(y) (- (square y) x)) 1.0)) 
+
