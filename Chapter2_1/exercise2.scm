@@ -32,6 +32,17 @@
 
 ;;;Mid-point of a segment
 
+(define (mid-point s)
+  (make-point (/ (+ (x-point (start-segment s)) (x-point (end-segment s))) 2)
+	(/ (+ (y-point (start-segment s)) (y-point (end-segment s))) 2)))
+  
+;;;Tests for midpoint
+
+(print-point (mid-point (make-segment point-a point-b)))
+
+;(4,6)
+;Unspecified return value
+
 
 
 
