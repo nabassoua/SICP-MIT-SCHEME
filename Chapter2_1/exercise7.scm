@@ -3,7 +3,7 @@
 (define (make-interval a b)
   (cons a b))
 
-(define (lower-band interval)
+(define (lower-bound interval)
   (car interval))
 
 (define (upper-bound interval)
