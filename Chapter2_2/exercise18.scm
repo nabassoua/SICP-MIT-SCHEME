@@ -3,10 +3,19 @@
 (load "exercise17.scm")
 
 (define (reverse a-list)
-  (define (reverse-iter a n)
-    (if (= n 0)
-	(list (list-refs a n))
-	(reverse-iter a (- (length a) 1))))
-  (reverse-iter a-list (- (length a-list) 1)))
+  (if (null? a-list)
+      a-list
+      (append (reverse (cdr a-list)) (list (car a-list)))))
+
+
+
+
+
+
+
+
+
+
+
 
 (define sample-list (list 1 4 9 16 25))
