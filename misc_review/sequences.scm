@@ -40,7 +40,7 @@
   (if (null? sequence)
       ini
       (op (car sequence)
-	  (enumerate op ini (cdr sequence)))))
+	  (accumulate op ini (cdr sequence)))))
 
 ;(accumulate + 0 (list 1 2 3))
 ;Value: 6
@@ -99,3 +99,44 @@
 ;(sum-odd-squares2 (list 7 3 6 1))
 ;Value: 59
 
+
+(define (mymap p sequence)
+  (accumulate (lambda (x y) 
+		(cons (p x)
+		      y))
+	      '()
+	      sequence))
+
+(define (myappend seq1 seq2)
+  (accumulate cons seq2 seq1))
+	
+
+(define (mylength sequence)
+  (accumulate (lambda (x y) (+ 1 y))
+	      0
+	      sequence))
+	      
+;(mymap square (list 3 9 10))
+;Value 19: (9 81 100)
+
+;(mylength (list 2 4 5 7 9 2))
+;Value: 6
+
+;(myappend (list 1 2) (list 3 4 5))
+;Value 20: (3 4 5 1 2)
+
+;Value: myappend
+
+;(myappend (list 1 2) (list 3 4 5))
+;Value 21: (1 2 3 4 5)
+
+
+(define (horner-eval x coefficient-sequence)
+  (accumulate (lambda (this-coeff higher-terms)
+		(+ (* higher-terms x)
+		   this-coeff))
+	      0
+	      coefficient-sequence))
+
+;(horner-eval 2 (list 1 3 0 5 0 1))
+;Value: 79
