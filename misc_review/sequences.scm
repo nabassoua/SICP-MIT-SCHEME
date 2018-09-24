@@ -140,3 +140,50 @@
 
 ;(horner-eval 2 (list 1 3 0 5 0 1))
 ;Value: 79
+
+
+;;;Nested mapping
+
+
+(define (flatmapp proc seq)
+  (accumulate append
+	      '()
+	      (map proc seq)))
+	      
+(define (prime-sum? pair)
+  (prime? (+ (car pair)(car (cdr pair)))))
+
+
+(define (make-pair-sum pair)
+  (list (car pair) (cadr pair) (+ (car pair)(car (cdr pair)))))
+
+(define (prime-sum-pairs n)
+  (map make-pair-sum 
+       (filter prime-sum? 
+	       (flatmapp 
+		(lambda (i)
+		    (map (lambda(j) (list i j)) 
+			 (enumerate-interval 1 (- i 1))))
+		(enumerate-interval 1 n)))))
+
+;;;Example
+;(prime-sum-pairs 8)
+;Value 13: ((2 1 3) (3 2 5) (4 1 5) (4 3 7) (5 2 7) (6 1 7) (6 5 11) (7 4 11) (7 6 13) (8 3 11) (8 5 13))
+
+;;;Tests whether a natural number n is prime
+
+
+(define (divisor? a b)
+  (= (remainder b a) 0))
+
+(define (prime? n)
+  (= (smallest-divisor n) n)) 
+
+(define (smallest-divisor n)
+  (find-divisors n 2))
+
+(define (find-divisors n test-divisors)
+  (cond ((> (square test-divisors) n) n)
+	((divisor? test-divisors n) test-divisors)
+	(else (find-divisors n (+ test-divisors 1)))))
+
