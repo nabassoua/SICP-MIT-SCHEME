@@ -145,5 +145,23 @@ l2
 ;Value 19: (3 4 2 1)
 		 
 
+(define (scale-tree tree factor)
+  (cond ((null? tree) '())
+	((not (pair? tree)) (* tree factor))
+	(else
+	 (cons (scale-tree (car tree) factor)
+	       (scale-tree (cdr tree) factor)))))
+
+;(scale-tree (list (list 3 4) (list 5 6)) 3)
+;Value 18: ((9 12) (15 18))
+
+
+(define (square-tree tree)
+  (cond ((null? tree) '())
+	((not (pair? tree)) (square tree))
+	(else
+	 (cons (square-tree (square (car tree)))
+	       (square-tree (cdr tree))))))
+
 
 
