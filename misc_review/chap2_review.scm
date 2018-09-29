@@ -151,6 +151,21 @@ l2
 	(else
 	 (cons (scale-tree (car tree) factor)
 	       (scale-tree (cdr tree) factor)))))
+<<<<<<< HEAD
+
+;(scale-tree (list (list 3 4) (list 5 6)) 3)
+;Value 18: ((9 12) (15 18))
+
+
+(define (square-tree tree)
+  (cond ((null? tree) '())
+	((not (pair? tree)) (square tree))
+	(else
+	 (cons (square-tree (square (car tree)))
+	       (square-tree (cdr tree))))))
+
+=======
+>>>>>>> 628058b186929d9740c585f7b7785145be70268c
 
 ;(scale-tree (list (list 3 4) (list 5 6)) 3)
 ;Value 18: ((9 12) (15 18))
@@ -164,4 +179,34 @@ l2
 	       (square-tree (cdr tree))))))
 
 
+;;;Nested mapping
 
+
+(define (flatmapp proc seq)
+  (accumulate append
+	      '()
+	      (map proc seq)))
+	      
+(define (prime-sum? pair)
+  (prime? (+ (car pair)(car (cdr pair)))))
+
+
+(define (make-pair-sum pair)
+  (list (car pair) (cadr pair) (+ (car pair)(car (cdr pair)))))
+
+(define (prime-sum-pairs n)
+  (map make-pair-sum 
+       (filter prime-sum? 
+	       (flatmapp 
+		(lambda (i)
+		    (map (lambda(j) (list i j)) 
+			 (enumerate-interval 1 (- i 1))))
+		(enumerate-interval 1 n)))))
+
+
+
+
+
+
+
+  
