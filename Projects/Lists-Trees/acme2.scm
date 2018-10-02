@@ -36,5 +36,14 @@
 ;Value 18: (1 2 3 5 7)
 
 
+(define (cube x)
+  (* x x x))
 
+(define (sum-some-cubes lst)
+  (let ((value (cube (car lst))))
+    (my_accumulate +
+		   0
+		   (map cube
+			(my-filter (and (> value 10) (< value 10000)) lst)))))
+		    
 
