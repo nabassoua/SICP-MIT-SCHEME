@@ -39,11 +39,76 @@
 (define (cube x)
   (* x x x))
 
+;;Tests if the cube of a number x 
+;;is between 10 and 10000
+
+(define (included? x)
+  (and (> (cube x) 10)(< (cube x) 10000)))
+
+;(included? 2)
+;Value: #f
+
+;(included? 100)
+;Value: #f
+
+;(included? 10)
+;Value: #t
+
+
 (define (sum-some-cubes lst)
-  (let ((value (cube (car lst))))
-    (my_accumulate +
+    (my-accumulate +
 		   0
 		   (map cube
-			(my-filter (and (> value 10) (< value 10000)) lst)))))
-		    
+			(my-filter included? lst))))
+
+;(sum-some-cubes (list 1 2 10 11 100))
+;Value: 2331
+
+;;This procedure returns the copy of a given list
+
+(define (copy lst)
+  (if (null? lst)
+      '()
+      (cons (car lst)
+	    (copy (cdr lst)))))
+
+;(copy (list 1 23 4 5))
+;Value 15: (1 23 4 5)
+
+;;This procedure returns the copy of a list using the map function
+
+(define (copy2 lst)
+  (map (lambda(x)
+	 (if (null? x)
+	     '()
+	     x))
+       lst))
+
+;(copy2 (list 1 23 4 5))
+;Value 17: (1 23 4 5)
+
+;; copy using filter
+
+(define (copy3 lst)
+  (my-filter (lambda(x)
+	       (if (null? x)
+		   '()
+		   x))
+	     lst))
+
+;(copy3 (list 1 23 4 5))
+;Value 18: (1 23 4 5)
+
+;;copy using accumulate
+
+(define (copy4 lst)
+  (my-accumulate cons
+		 '()
+		 lst))
+
+;(copy4 (list 1 23 4 5))
+;Value 19: (1 23 4 5)
+
+
+
 
