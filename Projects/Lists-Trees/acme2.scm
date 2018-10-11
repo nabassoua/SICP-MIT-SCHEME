@@ -109,6 +109,23 @@
 ;(copy4 (list 1 23 4 5))
 ;Value 19: (1 23 4 5)
 
+;;HOPS using HOPS
+
+(define (map2 p sequence)
+  (my-accumulate (lambda (x y)
+		   (cons (p x) y))
+		 '()
+		 sequence))
+
+;(map2 square (list 1 2 3 4))
+;Value 15: (1 4 9 16)
+
+(define (append2 seq1 seq2)
+  (my-accumulate cons 
+		 (car seq1)
+		 seq2))
 
 
 
+
+ 
