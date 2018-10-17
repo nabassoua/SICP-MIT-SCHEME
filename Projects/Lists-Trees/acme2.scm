@@ -121,9 +121,70 @@
 ;Value 15: (1 4 9 16)
 
 (define (append2 seq1 seq2)
-  (my-accumulate cons 
-		 (car seq1)
-		 seq2))
+  (my-accumulate cons
+		 seq2
+		 seq1))
+
+;(append2 (list 12 3 4) (list 5 7 8))
+;Value 17: (12 3 4 5 7 8)
+		
+(define  (my-lenght sequence)
+  (my-accumulate (lambda (x y)
+		   (+ 1 y))
+		 0
+		 sequence))
+
+;(my-lenght (list 1 2 3 4))
+;Value: 4
+		 
+;;SICP 2.28
+
+(define (fringe tree)
+  (if (null? tree)
+      '()
+      (let ((first (car tree))
+	    (rest (cdr tree)))
+	(append
+	 (if (pair? first)
+	     (fringe first)
+	     (list first))
+	 (fringe rest)))))
+
+;(fringe (list (list 1 2) (list 3 4)))
+;Value 16: (1 2 3 4)
+	 
+;(fringe (list 1 (list 3 4)))
+;Value 17: (1 3 4)	 
+
+(define (last-pair lst)
+  (if (null? (cdr lst))
+      (list (car lst))
+      (last-pair (cdr lst))))
+
+;(last-pair (list 23 72 149 34))
+;Value 18: (34)
+
+(define (last lst)
+  (if (null? (cdr lst))
+      (car lst)
+      (last (cdr lst))))
+
+;(last (list 23 72 149 34))
+;Value: 34
+
+	
+;(list 1 (list 2 3) (list 4 (list 5)))
+;Value 13: (1 (2 3) (4 (5)))
+
+
+
+
+   
+	 
+
+
+
+		 
 
 
 
