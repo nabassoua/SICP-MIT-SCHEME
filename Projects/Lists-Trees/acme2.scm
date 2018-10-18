@@ -178,13 +178,73 @@
 
 
 
+;; ------------------------------------------------------------
+;;
+;; Some stock data.  The ibm examples are from the problem set,
+;; while the acme examples are defined here.
 
+(define ibm-previous-close 100.0)
+(define ibm-prices (list 100.5 101.0))
+
+; If you're curious about how I generated the prices...
+(define (random-walk start n)
+  (define (helper count last so-far)
+    (if (= count n)
+	so-far
+	(let ((step (* (- (random 16) 8) 0.25)))
+	  (helper (+ count 1)
+		  (+ last step)
+		  (append so-far (list (+ last step)))))))
+  (helper 0 start nil))
+
+; (define acme-prices (random-walk acme-previous-close 10))
+
+(define acme-previous-close 50.0)
+(define acme-prices 
+  (list 49.75 48.75 47.0  45.0  46.25
+	48.0  47.5  48.5  47.25 46.75))
+
+;;This procedure computes net gain/loss in the price of the stock
+
+(define (price-trend previous-close ticker)
+  (- (last ticker) previous-close))
+
+;(price-trend ibm-previous-close ibm-prices)
+;Value: 1.
+
+;(price-trend acme-previous-close acme-prices)
+;Value: -3.25
+
+;;this procedure computes the average price of the stock
    
-	 
+(define (price-average ticker)
+  (/ (my-accumulate + 0 ticker)
+     (my-lenght ticker)))
+
+;(price-average acme-prices)
+;Value: 47.475
 
 
+;;This procedure returns the highest price of the stock during the trading day
 
-		 
+(define (price-high ticker)
+  (list-max ticker))
+
+(define (list-max lst)
+  (if (null? lst)
+      '()
+      (max (cons (car lst)
+		 (list-max (cdr lst))))))
+
+;;Rewriting the same procedure using HOP
+	   
+(define (price-high2 lst)
+  (my-accumulate max
+		 0
+		 lst))
+
+;(price-high2 acme-prices)
+;Value: 49.75		 
 
 
 
