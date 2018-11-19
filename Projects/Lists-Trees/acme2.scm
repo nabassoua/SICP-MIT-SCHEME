@@ -231,10 +231,32 @@
   (list-max ticker))
 
 (define (list-max lst)
-  (if (null? lst)
-      '()
-      (max (cons (car lst)
-		 (list-max (cdr lst))))))
+  (if (null? (cdr lst))
+      (car lst)
+      (max  (car lst)
+	    (list-max (cdr lst)))))
+
+;list-max follows an recursive processed (defered operations)
+;s(n) is linear in space where n is the number of elements in the list
+;(list-max acme-prices)
+;Value: 49.75
+
+;Iterative version of price-high
+
+(define (price-high-iter ticker)
+  (list-max-iter ticker))
+
+(define (list-max-iter lst)
+  (define (helper lst  max-so-far)
+    (if (null? lst)
+	max-so-far
+	(helper (cdr lst)
+		(max max-so-far (car lst)))))
+  (helper (cdr lst) (car lst)))
+  
+;(price-high-iter acme-prices)
+;Value: 49.75
+
 
 ;;Rewriting the same procedure using HOP
 	   
@@ -246,7 +268,19 @@
 ;(price-high2 acme-prices)
 ;Value: 49.75		 
 
+;; COMPUTER EXERCISE 5 - price-range
+(define (price-range ticker)
+  (define (helper ticker low-so-far high-so-far)
+    (if (null? ticker)
+	(list low-so-far high-so-far)
+	(helper (cdr ticker)
+		(min low-so-far (car ticker))
+		(max high-so-far (car ticker)))))
+  (helper (cdr ticker) (car ticker) (car ticker)))
 
 
-
+;(price-range acme-prices)
+;Value 14: (45. 49.75)
  
+
+
