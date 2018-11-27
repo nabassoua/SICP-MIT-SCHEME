@@ -282,5 +282,60 @@
 ;(price-range acme-prices)
 ;Value 14: (45. 49.75)
  
+; ------------------------------------------------------------
+; ON THE FLOOR
+
+(define (ask-price  ask) (car ask))
+(define (ask-shares ask) (cdr ask))
+
+(define (bid-price  bid) (car bid))
+(define (bid-shares bid) (cdr bid)) ; corrected 9/24/96
+; (define (bid-shares bid) (cdr ask)) -- ERROR
+
+(define ibm-ask (list (cons 101.0 200) (cons 100.5 200) (cons 101.0 100)))
+(define ibm-bid (list (cons 100.5 100) (cons 100.5 100) (cons 101.0 100)))
+
+;; The acme data.  This should be consistent 
+(define acme-ask
+  (list (cons 50.0 100) (cons 49.75 100) (cons 50.0 100)
+	(cons 48.75 100) (cons 49.0 100) (cons 47.0 200)
+	(cons 47.0 100) (cons 45.0 500)	(cons 46.25 300)
+	(cons 48.0 400) (cons 48.0 400)	(cons 48.0 200)
+	(cons 47.5 200) (cons 48.5 100)	(cons 49.0 100)
+	(cons 47.25 100) (cons 47.5 100) (cons 46.75 100)))
+
+(define acme-bid
+  (list (cons 49.75 200) (cons 49.75 200) (cons 48.5 100)
+	(cons 48.75 100) (cons 45.0 100) (cons 47.0 100)
+	(cons 44.0 100) (cons 45.0 400)	(cons 46.25 100)
+	(cons 47.0 100) (cons 48.0 200)	(cons 47.0 400)
+	(cons 47.5 300) (cons 48.5 100)	(cons 47.0 100)
+	(cons 47.25 200) (cons 45.0 100) (cons 46.75 100)))
+
+; COMPUTER EXERCISE 6 - price-spreads
+
+(define (price-spreads asklist bidlist)
+  (define (price-spreads-iter asklist bidlist spread-so-far)
+    (if (null? <TBD>)
+	(list spread-so-far)
+	(price-spreads-iter (cdr asklist)
+			    (cdr bidist)
+			    (- (ask-price asklist)(bid-price bidlist)))))
+  (price-spreads-iter (cdr asklist) (cdr bidlist) <TBD>))
+
+
+
+
+
+
+
+
+; COMPUTER EXERCISE 7 - map2 & price-spreads
+; COMPUTER EXERCISE 8 - trade? and ticker-prices
+; COMPUTER EXERCISE 9 - merge2
+; COMPUTER EXERCISE 10 - ticker-prices using merge2
+; COMPUTER EXERCISE 11 - ticker-shares and total-shares
+; COMPUTER EXERCISE 12 - price-volume
+
 
 
