@@ -315,27 +315,109 @@
 ; COMPUTER EXERCISE 6 - price-spreads
 
 (define (price-spreads asklist bidlist)
-  (define (price-spreads-iter asklist bidlist spread-so-far)
-    (if (null? <TBD>)
-	(list spread-so-far)
-	(price-spreads-iter (cdr asklist)
-			    (cdr bidist)
-			    (- (ask-price asklist)(bid-price bidlist)))))
-  (price-spreads-iter (cdr asklist) (cdr bidlist) <TBD>))
+    (if (null? asklist) 
+	'()
+	(cons (- (ask-price (car asklist))(bid-price (car bidlist)))
+	      (price-spreads (cdr asklist) (cdr bidlist)))))
 
+;(price-spreads acme-ask acme-bid)
+;Value 15: (.25 0. 1.5 0. 4. 0. 3. 0. 0. 1. 0. 1. 0. 0. 2. 0. 2.5 0.)
 
-
-
-
-
+;The recursive procedure above is linear in both space and time because of the deferred operations 
 
 
 ; COMPUTER EXERCISE 7 - map2 & price-spreads
+
+(define (map2 proc lst1 lst2)
+    (if (null? lst1) 
+	'()
+	(cons (proc (car lst1) (car lst2))
+	      (map2 proc (cdr lst1) (cdr lst2)))))
+
+(map2 + (list 1 2 3) (list 10 11 12))
+;Value 16: (11 13 15)
+
+(define (price-spreads-map asklist bidlist)
+  (map2 (lambda (ask bid)
+	  (- (ask-price ask)
+	     (bid-price bid)))
+	  asklist
+	  bidlist))
+
+;(price-spreads-map acme-ask acme-bid)
+;Value 18: (.25 0. 1.5 0. 4. 0. 3. 0. 0. 1. 0. 1. 0. 0. 2. 0. 2.5 0.)
+
+
+
 ; COMPUTER EXERCISE 8 - trade? and ticker-prices
+
+(define (trade? asklist bidlist)
+  (>= (bid-price bidlist)(ask-price asklist)))
+
+
+
 ; COMPUTER EXERCISE 9 - merge2
+
+(define (merge2 pred proc list1 list2)
+  (cond ((null? list1) '())
+	((pred (car list1) (car list2))
+	 (cons (proc (car list1) (car list2))
+	       (merge2 pred proc (cdr list1) (cdr list2))))
+	(else (merge2 pred proc (cdr list1) (cdr list2)))))
+|#
+(merge2 (lambda (x y) (and (odd? x) (odd? y)))
+	+
+	(list 1 2 3 4)
+	(list 5 3 5 3))
+
+;Value 15: (6 8)
+|#
+
+
 ; COMPUTER EXERCISE 10 - ticker-prices using merge2
+
+(define (ticker-prices asks bids)
+  (merge2 trade?
+	  (lambda (ask bid) (car ask))
+	  asks bids))
+
+;(ticker-prices ibm-ask ibm-bid)
+;Value 16: (100.5 101.)
+
+
 ; COMPUTER EXERCISE 11 - ticker-shares and total-shares
+
+(define (ticker-shares asks bids)
+  (merge2 trade?
+	  (lambda (ask bid) (min (cdr ask) (cdr bid)))
+	  asks 
+	  bids))
+
+;(ticker-shares ibm-ask ibm-bid)
+;Value 17: (100 100)
+
+;(ticker-shares acme-ask acme-bid)
+;Value 21: (100 100 100 400 100 200 200 100 100 100)
+
+(define (total-shares asks bids)
+  (my-accumulate +
+		 0
+		 (ticker-shares asks bids)))
+  
+;(total-shares acme-ask acme-bid)
+;Value: 1500
+
+
+
+
 ; COMPUTER EXERCISE 12 - price-volume
 
+(define (price-volume asks bids)
+  (my-accumulate +
+		 0
+		 (map2 *
+		       (ticker-prices asks bids)
+		       (ticker-shares asks bids))))
 
-
+;(price-volume acme-ask acme-bid)
+;Value: 70525.
