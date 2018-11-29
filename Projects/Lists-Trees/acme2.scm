@@ -364,14 +364,14 @@
 	 (cons (proc (car list1) (car list2))
 	       (merge2 pred proc (cdr list1) (cdr list2))))
 	(else (merge2 pred proc (cdr list1) (cdr list2)))))
-|#
-(merge2 (lambda (x y) (and (odd? x) (odd? y)))
-	+
-	(list 1 2 3 4)
-	(list 5 3 5 3))
+
+;(merge2 (lambda (x y) (and (odd? x) (odd? y)))
+;	+
+;	(list 1 2 3 4)
+;	(list 5 3 5 3))
 
 ;Value 15: (6 8)
-|#
+
 
 
 ; COMPUTER EXERCISE 10 - ticker-prices using merge2
@@ -421,3 +421,80 @@
 
 ;(price-volume acme-ask acme-bid)
 ;Value: 70525.
+
+
+; ================================================================
+; AT THE ACME PLANT
+
+(define NeoWidget-hours (list 5
+			      (list 2 (list 4 3))
+			      1))
+
+(define MegaWidget-hours (list (list 1 12)
+			       (list (list 3 14) (list 15 6))
+			       (list 3 (list 8 9))
+			       (list 10 4)))
+
+; COMPUTER EXERCISE 13 - assembly-line-hours
+
+(define (assembly-line-hours product-hours)
+  (my-accumulate +
+		 0
+		 (fringe product-hours)))
+
+;(assembly-line-hours NeoWidget-hours)
+;Value: 15
+
+
+; COMPUTER EXERCISE 14 - tree-accumulate
+
+; Complete the following definition:
+(define (tree-accumulate combiner op initial tree)
+  (cond ((null? tree) initial)
+        ((not (pair? tree))
+	 (op tree))
+        (else 
+         (combiner (tree-accumulate combiner op initial (car tree))
+		   (tree-accumulate combiner op initial (cdr tree))))))
+
+
+(define (assembly-line-hours-accumulation hours)
+  (tree-accumulate +
+		   (lambda (x)
+		     x)
+		   0
+		   hours))
+
+;(assembly-line-hours-accumulation NeoWidget-hours)
+;Value: 15
+
+
+; COMPUTER EXERCISE 15 - count-line-stations
+
+(define (count-line-stations hours)
+  (cond ((null? hours) 0)
+        ((not (pair? hours)) 1)
+        (else 
+         (+ (count-line-stations (car hours))
+	    (count-line-stations (cdr hours))))))
+
+;(count-line-stations NeoWidget-hours)
+;Value: 5
+	    
+			   
+
+
+;------------------------------------------------------------
+; PARALLEL MANUFACTURING
+
+; COMPUTER EXERCISE 16 - assembly-parallel-hours
+
+; COMPUTER EXERCISE 17 - count-parallel-stations
+
+; COMPUTER EXERCISE 18 - time-scale-benefit
+
+
+
+
+
+
