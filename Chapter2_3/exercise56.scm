@@ -1,4 +1,4 @@
-;;;A simplified version of dreivatives
+;;;Exercise 56: extending derivaties 
 
 (define (make-sum e1 e2)
   (cond ((=number? e1 0) e2)
@@ -45,8 +45,9 @@
 ;;Constructor for exponentiation
 
 (define (make-exponentiation u n)
-  (cond ((and (=number? n 0) (number? u)) 1)
-	((and (=number? n 1) (number? u)) u)
+  (cond ((=number? n 0) 1)
+	((=number? u 0) 0)
+	((and (number? u) (number? n))(exp u n))
 	(else
 	 (list '** u n))))
 
@@ -61,8 +62,7 @@
 ;;Recognizing an exponentiation expression
 
 (define (exponentiation? expr)
-  (and (or (is-sum? expr)
-	   (is-product? expr))
+  (and (pair? expr)
        (eq? (car expr) '**)))
 
 ;;Formulas for computing derivatives
@@ -81,11 +81,12 @@
 	  (make-product (deriv (multiplier expr) var)
 			(multiplicand expr))))
 	((exponentiation? expr)
-	 (*
+	 (make-product
 	  (exponent expr)
-	  (make-exponentiation (base expr)
-			       (- (exponent expr) 1))
-	  (deriv (base expr))))
+	  (make-product
+	   (make-exponentiation (base expr)
+				(make-sum  (exponent expr) (- 1)))
+	   (deriv (base expr) var))))
 	(else
 	 (error "Invalid expression --DERIV"))))
 
@@ -101,5 +102,10 @@
 
 ;Value: exponentiation?
 
-;(deriv '(** x 2) 'x)
-;Invalid expression --DERIV
+
+(deriv '(** x 2) 'x)
+;Value 14: (* 2 (** x 1))
+
+(deriv '(** (+ x (* 5 x)) 13) 'x)
+;Value 15: (* 13 (* (** (+ x (* 5 x)) 12) 6))
+
