@@ -15,14 +15,12 @@
 	result-list
 	(copy-to-list (left-branch tree)
 		      (cons (entry tree)
-			    (copy-to-list (left-branch tree)
-					  (cons (entry tree)
-						(copy-to-list (right-branch tree)
-							      result-list)))))))
+			    (copy-to-list (right-branch tree)
+					  result-list)))))
   (copy-to-list tree '()))
 
 ;;;tree->list-1 follows a resursive process while tree->list-2 follows an iterative process
-;;;The procedures do not produce the same resut for every tree (see examples below)
+;;;The procedures produce the same resut for every tree (see examples below)
 ;;;tree->list-1 grows more slowly
 
 ;;;Examples
@@ -77,12 +75,12 @@
 ;Value 16: (1 3 5 7 9 11)
 
 ;(tree->list-2 my-tree-1)
-;Value 17: (1 1 3 1 1 3 5 5 7 1 1 3 1 1 3 5 5 7 9 9 11 11)
+;Value 16: (1 3 5 7 9 11)
 
 ;(tree->list-2 my-tree-2)
-;Value 18: (1 1 3 1 1 3 5 5 7 5 5 7 9 9 11 11)
+;Value 16: (1 3 5 7 9 11)
 
 ;(tree->list-2 my-tree-3)
-;Value 19: (1 1 3 1 1 3 5 1 1 3 1 1 3 5 7 7 9 7 7 9 11 11)
+;Value 16: (1 3 5 7 9 11)
 
 
