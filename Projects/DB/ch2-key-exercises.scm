@@ -23,4 +23,35 @@
 ;Value 17: (2 4 6)
 
    
+;;;Exercise 29
 
+(define (make-mobile left right)
+  (list left right))
+
+(define (make-branch length structure)
+  (list length structure))
+
+(define (left-branch mobile)
+  (car mobile))
+
+(define (right-branch mobile)
+  (cadr mobile))
+
+(define (branch-length branch)
+  (car branch))
+
+(define (branch-structure branch)
+  (cadr branch))
+
+(define (total-weight mobile)
+  (if (null? mobile)
+      0
+      (+ (total-weight (left-branch mobile))
+	 (total-weight (right-branch mobile)))))
+
+(define (balanced? mobile)
+  (= (* (branch-length (left-branch mobile))
+	(total-weight (left-branch mobile)))
+     (* (branch-length (right-branch mobile))
+	(total-weight (right-branch mobile)))))
+     
