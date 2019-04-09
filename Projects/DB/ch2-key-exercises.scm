@@ -43,15 +43,36 @@
 (define (branch-structure branch)
   (cadr branch))
 
+(define mobile-foo (make-mobile (make-branch 2 5)
+				(make-branch 5 6)))
+
+(define mobile-foo2 (make-mobile (make-branch 2 5)
+				 (make-branch 2 5)))
+
+
 (define (total-weight mobile)
-  (if (null? mobile)
-      0
-      (+ (total-weight (left-branch mobile))
-	 (total-weight (right-branch mobile)))))
+  (cond ((null? mobile) 0)
+	((not (pair? mobile)) mobile)
+	(else
+	 (+ (total-weight (branch-structure (left-branch mobile)))
+	    (total-weight (branch-structure (right-branch mobile)))))))
+
+;(total-weight mobile-foo)
+;Value: 11
 
 (define (balanced? mobile)
-  (= (* (branch-length (left-branch mobile))
-	(total-weight (left-branch mobile)))
-     (* (branch-length (right-branch mobile))
-	(total-weight (right-branch mobile)))))
+  (cond ((null? mobile) true)
+	((not (pair? mobile)) false)
+	(else 
+	 (and 
+	  ( = (* (branch-length (left-branch mobile))
+		 (total-weight (branch-structure (left-branch mobile))))
+	      (* (branch-length (right-branch mobile))
+		 (total-weight (branch-structure (right-branch mobile)))))
+	  (balanced? (branch-structure (left-branch mobile)))
+	  (balanced? (branch-structure (right-branch mobile)))))))
+
+(balanced? mobile-foo)
+;Value: #f
+
      
