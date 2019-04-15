@@ -75,4 +75,33 @@
 (balanced? mobile-foo)
 ;Value: #f
 
-     
+;;;Most important utilities so far     
+
+
+(define (my-accumulate op init items)
+  (if (null? items)
+      '()
+      (op (car items)
+	  (my-accumulate op init (cdr items)))))
+
+(define (my-filter predicate? items)
+  (cond ((null? items) '())
+	((predicate? (car items))
+	 (cons (car items)
+	       (my-filter predicate? (cdr items))))
+	(else
+	 (my-filter predicate? (cdr items)))))
+
+(define list-test (list 1 2 3 4 5))
+
+;(my-filter odd? list-test)
+;Value 16: (1 3 5)
+
+;(my-filter even? list-test)
+;Value 17: (2 4)
+
+(define (my-map proc items)
+  (if (null? items)
+      '()
+      (cons (proc (car items))
+	    (my-map proc (cdr items)))))
