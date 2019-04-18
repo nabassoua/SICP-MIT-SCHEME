@@ -131,3 +131,18 @@
 ;(last-pair (list 1 4 9 16 25))
 ;Value 24: (25)
 
+
+;;;Exercise 18: Reverse
+
+(define (reverse lst)
+  (if (null? lst)
+      '()
+      (append (reverse (cdr lst))
+	      (list (car lst)))))
+
+;(reverse (list 1 4 9 16 25))
+;Value 14: (25 16 9 4 1)
+
+      
+
+
