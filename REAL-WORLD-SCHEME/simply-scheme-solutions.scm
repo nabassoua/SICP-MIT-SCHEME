@@ -89,3 +89,47 @@
   (word (first (bl wrd1)) (first (bl wrd2))))
 
 ;Value: be
+
+;;;5.20
+
+(define (middle-names expr)
+  (se (bf (bl expr))))
+
+;(middle-names '(peter blair denis bernard mike alexander george noone))
+;Value 14: (blair denis bernard mike alexander george)
+
+;(middle-names '(bugs bunny))
+;Value: ()
+
+;;;5.19
+
+(define (insert-and expr)
+  (se (bl expr) '(and) (se (last expr))))
+
+;(insert-and '(john bill wayne fred joey))
+;Value 15: (john bill wayne fred and joey)
+
+;;;5.17
+
+(define (knight expr)
+  (se '(sir) expr))
+
+;(knight '(david wessel))
+;Value 17: (sir david wessel)
+
+;;;5.21
+
+(define (query expr)
+  (se (se (first (bf expr)))
+      (se (first expr))
+      (se (bf (bf expr)))
+      '(?)))
+
+;(query '(i should have known better))
+;Value 18: (should i have known better ?)
+
+;(query '(you are experienced))
+;Value 19: (are you experienced ?)
+
+
+
