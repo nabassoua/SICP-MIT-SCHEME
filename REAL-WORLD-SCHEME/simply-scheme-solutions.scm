@@ -132,4 +132,18 @@
 ;Value 19: (are you experienced ?)
 
 
+;;;6.14
+
+(define (describe-time secs)
+  (cond (( and (> secs 0) (< secs 60))
+	 (se secs 'seconds))
+	(( and (> secs 60) (< secs 3600))
+	 (let ((secs-to-minutes (/ secs 60.0)))
+	   (se secs-to-minutes 'minutes)))
+	(( > secs 300000000)
+	 (let ((secs-to-centuries (* secs (* 3.168 (expt 10 (- 10))))))
+	   (se secs-to-centuries 'centuries)))))
+
+;(describe-time 30000000000)
+;Value 25: (9.504000000000001 centuries)
 
