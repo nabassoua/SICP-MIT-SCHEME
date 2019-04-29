@@ -147,3 +147,72 @@
 ;(describe-time 30000000000)
 ;Value 25: (9.504000000000001 centuries)
 
+;;;8.4
+
+
+(define beatles '(John Paul George Ringo))
+
+(define (vowel? letter)
+  (member? letter '(a e i o u)))
+
+(define (ends-vowel? wd)
+  (vowel? (last wd)))
+
+(define (even-count? wd)
+  (even? (count wd)))
+
+(define (choose-beatles predicate?)
+  (lambda(sent)
+    (keep predicate? sent)))
+
+;((choose-beatles ends-vowel?) beatles)
+;Value 16: (george ringo)
+
+;((choose-beatles even-count?) beatles)
+;Value 17: (john paul george)
+
+
+;;;8.5
+
+(define (amazify name)
+  (word 'the-amazing- name))
+
+(define (transform-beatles proc)
+  (lambda (wrd)
+    (every proc wrd)))
+
+
+;((transform-beatles amazify) beatles)
+;Value 14: (the-amazing-john the-amazing-paul the-amazing-george the-amazing-ringo)
+
+
+;;;8.8
+
+(define (double var)
+  (* 2 var))
+
+(define (before-last-word sent)
+  (last (bl sent)))
+
+(define (change-before-last-word sent)
+  (cond ((number? (last (bl sent)))
+	 (* 2 (last (bl sent))))
+	((equal? (last (bl sent)) 'good)
+	 'great)
+	((equal? (last (bl sent)) 'bad)
+	 'terrible)
+	(else
+	 'no-word)))
+
+(define (exaggerate sent)
+  (every (lambda (wd)
+	   (change-before-last-word wd)) 
+	 sent))
+
+
+
+
+
+
+	 
+	 
