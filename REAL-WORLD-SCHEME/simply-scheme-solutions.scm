@@ -209,10 +209,50 @@
 	   (change-before-last-word wd)) 
 	 sent))
 
+;;;8.12
+
+(define (count-ums sent)
+  (count (keep (lambda(wrd)
+		 (equal? wrd 'um))
+	       sent)))
+
+(define (find-ums sent)
+  (keep (lambda(wrd)
+		 (equal? wrd 'um))
+	sent))
+
+(define (count-ums2 sent)
+  (count (find-ums sent)))
+
+;(count-ums '(today um we are going to um talk about functional um programming))
+;Value: 3
+
+;;;8.10
+
+
+(define (predic pred? sent)
+  (every xpred? sent))
 
 
 
 
+
+;;;8.13
+
+(define (translate-letters wrd)
+  (cond ((equal? wrd 'p) 7)
+	((equal? wrd 'o) 6)
+	((equal? wrd 'c) 2)
+	((equal? wrd 'r) 1)
+	((equal? wrd 'n) 2)
+	((equal? wrd 'd) 8)
+	((equal? wrd 'e) 9)
+	((equal? wrd 'l) 3)))
 
 	 
-	 
+(define (phone-unspell letter-tel-num)
+  (accumulate word (every translate-letters letter-tel-num)))
+
+;(phone-unspell 'popcorn)
+;Value: 7672612
+
