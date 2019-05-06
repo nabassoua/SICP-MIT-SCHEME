@@ -182,6 +182,7 @@
     (every proc wrd)))
 
 
+
 ;((transform-beatles amazify) beatles)
 ;Value 14: (the-amazing-john the-amazing-paul the-amazing-george the-amazing-ringo)
 
@@ -194,20 +195,23 @@
 (define (before-last-word sent)
   (last (bl sent)))
 
-(define (change-before-last-word sent)
-  (cond ((number? (last (bl sent)))
-	 (* 2 (last (bl sent))))
-	((equal? (last (bl sent)) 'good)
+(define (change-before-last-word wrd)
+  (cond ((number? wrd)
+	 (* 2 wrd))
+	((equal? wrd 'good)
 	 'great)
-	((equal? (last (bl sent)) 'bad)
+	((equal? wrd 'bad)
 	 'terrible)
 	(else
-	 'no-word)))
+	 wrd)))
 
 (define (exaggerate sent)
-  (every (lambda (wd)
-	   (change-before-last-word wd)) 
-	 sent))
+  (every change-before-last-word sent))
+
+;(exaggerate '(the chow fun is good here))
+;Value 16: (the chow fun is great here)
+
+
 
 ;;;8.12
 
@@ -229,10 +233,15 @@
 
 ;;;8.10
 
+(define (true-for-all? predic? sent)
+  (= (count sent)
+     (count (keep predic? sent))))
 
-(define (predic pred? sent)
-  (every xpred? sent))
+;(true-for-all? even? '(2 4 6 8))
+;Value: #t
 
+;(true-for-all? even? '(2 6 3 4))
+;Value: #f
 
 
 
