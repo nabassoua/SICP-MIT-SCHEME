@@ -265,3 +265,62 @@
 ;(phone-unspell 'popcorn)
 ;Value: 7672612
 
+
+;;;Recursion
+
+(define (explode wrd)
+  (if (= 1 (count wrd))
+      wrd
+      (se (first wrd)
+	  (explode (bf wrd)))))
+
+;(explode 'dynamite)
+;Value 17: (d y n a m i t e)
+
+(define (letter-pairs wrd)
+  (if (<= (count wrd) 1)
+      '()
+      (se (word (first wrd) (first (bf wrd)))
+	  (letter-pairs (bf wrd)))))
+
+;(letter-pairs 'george)
+;Value 18: (ge eo or rg ge)
+
+;;;11.5
+	  
+(define (initials sent)
+  (if (empty? sent)
+      '()
+      (se (first (first sent))
+	  (initials (bf sent)))))
+
+;(initials '(if i need someone))
+;Value 19: (i i n s)
+
+;;;11.6
+
+(define (countdown num)
+  (if (= num 0)
+      'blastoff
+      (se num
+	  (countdown (- num 1)))))
+	  
+;(countdown 10)
+;Value 22: (10 9 8 7 6 5 4 3 2 1 blastoff)
+
+;(countdown 3)
+;Value 23: (3 2 1 blastoff)
+
+
+;;;11.7
+
+(define (copies num wrd)
+  (if (= num 0)
+      '()
+      (se wrd
+	  (copies (- num 1) wrd))))
+
+;(copies 8 'spam)
+;Value 25: (spam spam spam spam spam spam spam spam)
+
+		  
