@@ -323,4 +323,96 @@
 ;(copies 8 'spam)
 ;Value 25: (spam spam spam spam spam spam spam spam)
 
-		  
+;;;12.7
+
+(define (spell-digit digit)
+  (item (+ 1 digit)
+	'(zero one two three five six seven eight nine)))
+
+(define (spell-number n)
+  (if (empty? n)
+      '()
+      (se (spell-digit (first n))
+	  (spell-number (bf n)))))
+
+;;;12.8 
+
+(define (numbers sent)
+  (keep number? sent))
+
+;(numbers '(76 trombones and 110 cornets))
+;Value 14: (76 110)
+
+
+(define (get-number n)
+  (if (number? n)
+      n
+      '()))
+
+(define (numbers2 sent)
+  (if (empty? sent)
+      sent
+      (se (get-number (first sent))
+	  (numbers2 (bf sent)))))
+
+;(numbers2 '(76 trombones and 110 cornets))
+;Value 15: (76 110)
+
+;;;12.10
+
+
+(define (remove wrd sent)
+  (if (empty? sent) 
+      sent
+      (se (if (equal? (first sent) wrd)
+	      '()
+	      (first sent))
+	  (remove wrd (bf sent)))))
+
+;(remove 'the '(the song love of the loved by the beatles))
+;Value 18: (song love of loved by beatles)
+
+;;;12.11
+
+(define (count sent)
+  (if (empty? sent)
+      0
+      (+ 1
+	 (count (bf sent)))))
+
+;(count 'hellothuondqwdcvkwev)
+;Value: 20
+
+;(count '(hello my friend))
+;Value: 3
+
+
+  
+
+
+
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
