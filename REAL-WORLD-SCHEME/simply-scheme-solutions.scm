@@ -405,11 +405,14 @@
 (define (odds sent)
   (cond ((empty? sent) sent)
 	((my-even? (count sent))
-	 (se (first sent)
-	     (odds (bf (bl sent)))))
+	     (odds (bf sent)))
 	(else
 	 (se (first sent)
-	     (odds (bf (bf sent)))))))
+	     (odds (bf sent))))))
+
+;(odds '(I lost my little girl))
+;Value 13: (i my girl)
+
 	    
 	 
 	     
