@@ -386,8 +386,97 @@
 ;(count '(hello my friend))
 ;Value: 3
 
-
+;;;14.5
   
+(define (letter-count sent)
+  (if (empty? sent)
+      0
+      (+ 1
+	 (letter-count (bf sent)))))
+
+;(letter-count '(I am a king))
+;Value: 4
+
+;;;14.4
+
+(define (my-even? num)
+  (= (remainder num 2) 0))
+
+(define (odds sent)
+  (cond ((empty? sent) sent)
+	((my-even? (count sent))
+	 (se (first sent)
+	     (odds (bf (bl sent)))))
+	(else
+	 (se (first sent)
+	     (odds (bf (bf sent)))))))
+	    
+	 
+	     
+      
+      
+      
+
+
+;;;14.2
+      
+(define (up wrd)
+  (if (= (count wrd) 1)
+      wrd
+      (se (up (bl wrd))
+	  wrd)))
+
+;(up 'town)
+;Value 20: (t to tow town)
+
+;;;14.3
+  
+(define (remdup sent)
+  (if (empty? sent)
+      sent
+      (let ((rest (bf sent)))
+	(if (member? (first sent) rest)
+	    (se (remdup rest))
+	    (se (first sent)
+		(remdup rest))))))
+
+;(remdup '(ob la di ob la da))
+;Value 23: (di ob la da)
+
+;;;14.1
+
+(define (remove-once wrd sent)
+  (cond ((empty? sent) wrd)
+	((equal? (first sent) wrd)
+	 ;;do nothing, move along the rest of the sentence
+	 (remove-once wrd (bf sent)))
+	(else
+	 ;;build a new sentence,comprised of the same sentence but without duplicates
+	 (se (first sent)
+	     (remove-once wrd (bf sent))))))
+
+;(remove-once 'morning '(good morning good morning))
+;Value 27: (good good morning)
+
+;;;14.7
+
+(define (differences sent)
+  (if (<= (count sent) 1)
+      '()
+      (se (- (first (bf sent))
+	     (first sent))
+	  (differences (bf sent)))))
+
+;(differences '(4 23 9 87 6 12))
+;Value 30: (19 -14 78 -81 6)
+
+
+	     
+
+      
+
+
+
 
 
 
@@ -395,7 +484,7 @@
 
 
       
-  
+      
 
 
 
