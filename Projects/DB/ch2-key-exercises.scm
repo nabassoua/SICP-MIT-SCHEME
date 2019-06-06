@@ -80,7 +80,7 @@
 
 (define (my-accumulate op init items)
   (if (null? items)
-      '()
+      init
       (op (car items)
 	  (my-accumulate op init (cdr items)))))
 
@@ -143,6 +143,112 @@
 ;(reverse (list 1 4 9 16 25))
 ;Value 14: (25 16 9 4 1)
 
-      
+;exercise 19: Deep Reverse      
+
+(define (deep-reverse lst)
+  (if (null? lst)
+      '()
+      (append (deep-reverse (reverse (cdr lst)))
+	      (list (reverse (car lst))))))
+
+(define z (list (list 1 2) (list 3 4)))
+
+;exercise 28: fringe
+
+(define (fringe tree)
+  (cond ((null? tree) '())
+	((not (pair? tree))
+	 (list tree))
+	(else
+	 (append (fringe (car tree))
+		 (fringe (cdr tree))))))
+
+(define w (list (list 1 2) (list 3 4)))
+	 
+;;Exercise 37: Matrix operations
+
+
+(define (dot-product v w)
+  (my-accumulate + 0 (map * v w)))
+
+(define (accumulate-n op init seqs)
+  (if (null? (car seqs))
+      '()
+      (cons (my-accumulate op init (map car seqs))
+	    (accumulate-n op init (map cdr seqs)))))
+
+(define s (list (list 1 2 3) (list 4 5 6) (list 7 8 9) (list 10 11 12)))
+
+(define (matrix-*-vector m v)
+  (accumulate-n * 1 (map tbd tbd)))
+
+
+;;Exercise 35
+
+(define (my-count-leaves-tree t)
+  (my-accumulate +
+		 0
+		 (map (lambda (x) 1) (fringe-tree t))))
+
+(define a-tree (list 1
+		     (list 2 (list 3 4) 5)
+		     (list 6 7)))
+
+;(my-count-leaves-tree s)
+;Value: 12
+
+
+;;Tree manipulation utilities
+
+(define tree-test (cons (list 1 2) (list 3 4)))
+
+(define (accumulate-tree tree term combiner null-value)
+  (cond ((null? tree) null-value)
+	((not (pair? tree))
+	 (term tree))
+	(else 
+	 (combiner (accumulate-tree (car tree) term combiner null-value)
+		   (accumulate-tree (cdr tree) term combiner null-value)))))
+
+(define (sum-fringe tree)
+  (accumulate-tree tree (lambda (x) x) + 0))
+
+;(sum-fringe tree-test)
+;Value: 10
+
+;(sum-fringe a-tree)
+;Value: 28
+
+(define (count-leaves-tree tree)
+  (accumulate-tree tree (lambda(x) 1) + 0))
+
+
+;(count-leaves-tree tree-test)
+;Value: 4
+
+;(count-leaves-tree a-tree)
+;Value: 7
+
+(define (fringe-tree tree)
+  (accumulate-tree tree (lambda (x) (list x)) append '()))
+
+
+(define (fringe-tree2 tree)
+  (accumulate-tree tree (lambda (x) (list x)) (lambda (x y) (append x y)) '()))
+
+;(fringe-tree2 a-tree)
+;Value 16: (1 2 3 4 5 6 7)
+
+(define (map-tree op tree)
+  (accumulate-tree tree (lambda (x) (op x)) cons '()))
+
+;(map-tree + a-tree)
+;Value 17: (1 (2 (3 4) 5) (6 7))
+
+(define (scale-tree tree factor)
+  (map-tree (lambda (x) (* x factor)) tree))
+
+;(scale-tree a-tree 5)
+;Value 18: (5 (10 (15 20) 25) (30 35))
 
 
