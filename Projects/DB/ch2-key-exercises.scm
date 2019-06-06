@@ -179,8 +179,25 @@
 
 (define s (list (list 1 2 3) (list 4 5 6) (list 7 8 9) (list 10 11 12)))
 
+(define m (list (list 1 2 3 4) (list 4 5 6 6) (list 6 7 8 9)))
+
+(define v (list 1 2 3 4))
+
 (define (matrix-*-vector m v)
-  (accumulate-n * 1 (map tbd tbd)))
+  (map (lambda (x) (dot-product x v)) m))
+
+;(matrix-*-vector m v)
+;Value 16: (30 56 80)
+
+(define (transpose mat)
+  (accumulate-n cons '() mat))
+
+;(transpose m)
+;Value 19: ((1 4 6) (2 5 7) (3 6 8) (4 6 9))
+
+(define (matrix-*-matrix m n)
+  (let ((cols (transpose n)))
+    (map (lambda(x) (dot-product cols x)) m)))
 
 
 ;;Exercise 35
