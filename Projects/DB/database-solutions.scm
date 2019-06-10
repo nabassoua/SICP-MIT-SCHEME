@@ -9,11 +9,6 @@
 
 (define single-list (fringe linear-test-data))
    
-;;extract all ages from the collapsed list
-
-(define (age-list my-data)
-  (map cons
-       (filter integer? my-data)))
 
 (define (length lst)
   (if (null? lst)
@@ -34,11 +29,9 @@
 ;(average-age linear-test-data)
 ;Value: 60.76111111111111
 
-
-
-
-(define (names-in-database my-data)
-  TBD)
-
+(define (names-in-database db)
+  (map (lambda(x)
+	 (names (name-struct x)))
+       db))
 (define (names-of-people-over-65 my-data)
   TBD)
