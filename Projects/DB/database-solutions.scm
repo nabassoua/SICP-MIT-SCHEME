@@ -33,5 +33,58 @@
   (map (lambda(x)
 	 (names (name-struct x)))
        db))
+
+;;People aged 65 and over in the DB
+
+(define aged-65-and-over-db
+  (filter (lambda (x)
+	    (> (age (age-struct x)) 65))
+	  linear-test-data))
+
 (define (names-of-people-over-65 my-data)
-  TBD)
+  (names-in-database my-data))
+
+
+;;;Lab exercise 2
+
+;;Test equality of 2 lists
+
+(define (same-list2? lst1 lst2)
+  (cond ((and (null? lst1) (null? lst2))
+	      #t)
+	((and (and (symbol? (car lst1))(symbol? (car lst2)))
+	      (eq? (car lst1) (car lst2)))
+	 (same-list2? (cdr lst1) (cdr lst2)))
+	((and (equal? (car lst1) (car lst2))
+	      (equal? (cdr lst1) (cdr lst2)))
+	 (same-list2? (cdr lst1) (cdr lst2)))
+	(else
+	 #f)))
+
+;(same-list2? '(alfa bravo alpha 2 5 7 9) '(alfa bravo alpha 2 5 7 9))
+;Value: #t
+
+;(same-list2? '(alfa bravo alpha 2 5 5 9) '(alfa bravo alpha 2 5 7 9))
+;Value: #f
+
+;;List of all associate professors in our DB
+
+
+(define associate-profs-db 'TBD)
+
+;;Names of all associate profs in the DB
+
+(define (names-of-associate-profs db)
+  (names-in-database db))
+
+;;Average age of all associate profs in the DB
+
+(define (age-of-associate-profs db)
+  (average-age db))
+ 
+  
+
+
+
+	      
+
