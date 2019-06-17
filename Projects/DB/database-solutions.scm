@@ -82,7 +82,20 @@
 (define (age-of-associate-profs db)
   (average-age db))
  
-  
+;;lab exercise 5: test membership in the database
+
+(define (member? list-of-words lst)
+  (cond ((null? lst) #f)
+	((same-list2? list-of-words (car (names-in-database lst)))
+	 (filter (lambda(x)
+		   (equal? (names (name-struct x)) list-of-words))
+		 lst))
+	(else
+	 (member? list-of-words (cdr lst)))))
+
+;(member? '(grimson eric) linear-test-data)
+;Value 15: ((entry (name grimson eric) (age 31) (posn (dean))))
+
 
 
 
