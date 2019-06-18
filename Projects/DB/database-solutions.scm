@@ -67,24 +67,38 @@
 ;(same-list2? '(alfa bravo alpha 2 5 5 9) '(alfa bravo alpha 2 5 7 9))
 ;Value: #f
 
-;;List of all associate professors in our DB
+;;Lab exercise 2: list of all associate professors in our DB
 
 
-(define associate-profs-db 'TBD)
+(define (associate-profs-db db)
+  (filter (lambda (x)
+	    (same-list2? '(associate professor)
+			 (position (posn-struct x))))
+	  db))
 
 ;;Names of all associate profs in the DB
 
 (define (names-of-associate-profs db)
-  (names-in-database db))
+  (names-in-database (associate-profs-db db)))
+
+;(names-of-associate-profs linear-test-data)
+;Value 17: ((xiong hal) (jones jill) (wells abraham) (czerwinski martin) (chapin joanne) (tserng berthold) (miller eric) (mikkelson hal) (abelson berthold) (jones eric) (dally chris) (vaneyk gerry) (vaneyk hal) (horn joanne) (mikkelson steven) (housinger steven) (miller berthold) (stein jill) (stark lynn) (czerwinski steven) (miller rebecca) (schlecht gerry) (tserng ellen) (grimson peter) (maritime albert) (jacknis andrew) (smith yale) (maritime bill) (stein peter) (meyer sandy) (czerwinski sandy) (stein yale) (abelson sandy) (jordan andrew) (jacknis hal) (jacknis john) (maritime paul) (abelson abraham) (beebee andrew) (xiong joanne))
+
+
+
 
 ;;Average age of all associate profs in the DB
 
 (define (age-of-associate-profs db)
-  (average-age db))
+  (average-age (associate-profs-db db)))
+
+;(age-of-associate-profs linear-test-data)
+;Value: 63.7
+
  
 ;;lab exercise 5: test membership in the database
 
-(define (member? list-of-words lst)
+(define (member2? list-of-words lst)
   (cond ((null? lst) #f)
 	((same-list2? list-of-words (car (names-in-database lst)))
 	 (filter (lambda(x)
@@ -93,7 +107,7 @@
 	(else
 	 (member? list-of-words (cdr lst)))))
 
-;(member? '(grimson eric) linear-test-data)
+;(member2? '(grimson eric) linear-test-data)
 ;Value 15: ((entry (name grimson eric) (age 31) (posn (dean))))
 
 
