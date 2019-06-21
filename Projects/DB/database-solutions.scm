@@ -95,6 +95,34 @@
 ;(age-of-associate-profs linear-test-data)
 ;Value: 63.7
 
+;;Lab exercise 3: Create database entries
+
+(define my-entry-1 (make-struct '(mike prudence) '33 '(assistant professor)))
+(define my-entry-2 (make-struct '(ali beast) '39 '(associate professor)))
+(define my-entry-3 (make-struct '(albert king) '67 '(associate professor)))
+
+
+
+  
+(define my-db
+  (list
+   (make-struct (make-name 'mike 'prudence)
+		(make-age '33)
+		(make-posn '(assistant professor)))
+   (make-struct (make-name 'bruce 'spencer)
+		(make-age '39)
+		(make-posn '(assistant professor)))
+   (make-struct (make-name 'mike 'prudence)
+		(make-age '71)
+		(make-posn '(associate professor)))))
+
+;Value 18: ((entry (name mike prudence) (age 33) (posn (assistant professor))) (entry (name bruce spencer) (age 39) (posn (assistant professor))) (entry (name mike prudence) (age 71) (posn (associate professor))))
+
+
+
+
+
+
  
 ;;lab exercise 5: test membership in the database
 
