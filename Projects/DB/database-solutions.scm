@@ -156,14 +156,20 @@
 	((null? db2) db1)
 	((or (null? db1)(null? db2)) '())
 	((member2? (car db1) db2)
-	 (merge-db (cdr db2) db1)) 
+	 (merge-db (cdr db1) db2)) 
 	(else
 	 (cons (car db1)
-	       (merge-db (cdr db1)(cdr db2))))))
+	       (merge-db (cdr db1) db2)))))
 
-;(pretty-print (merge-db my-db my-db2))
-;((entry (name mike prudence) (age 33) (posn (assistant professor))) (entry (name bruce spencer) (age 39) (posn (assistant professor)))
-                                                                    (entry (name mike prudence) (age 71) (posn (associate professor))))
+
+
+;(merge-db my-db my-db2)
+;Value 28: ((entry (name mike prudence) (age 33) (posn (assistant professor))) (entry (name bruce spencer) (age 39) (posn (assistant professor))) (entry (name mike prudence) (age 71) (posn (associate professor))) (entry (name ali prudence) (age 38) (posn (assistant professor))) (entry (name paul li) (age 30) (posn (assistant professor))) (entry (name laue po) (age 79) (posn (associate professor))))
+
+
+
+
+                                                
 	      
 
 
